@@ -1,1 +1,44 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <allegro.h>
+int main()
+{
+    allegro_init();
+    set_color_depth(desktop_color_depth());
+    if((set_gfx_mode(GFX_AUTODETECT_WINDOWED,800,600,0,0))!=0)
+    {
+        allegro_message("Pb de mode graphique") ;
+        allegro_exit();
+        exit(EXIT_FAILURE);
+    }
+    install_mouse();
+    install_keyboard();
+    BITMAP*imagechargee;
+    BITMAP*image2;
+    BITMAP*image3;
+    while(!key[KEY_ESC])
+    {
+        imagechargee=load_bitmap("ImageNamek.bmp",NULL);
+        blit(imagechargee,screen,0,0,0,0,imagechargee->w,imagechargee->h);
+        image2=load_bitmap("quitter.bmp",NULL);
+        blit(image2,screen,0,0,250,350,image2->w,image2->h);
+        image3=load_bitmap("jouer.bmp",NULL);
+        blit(image3,screen,0,0,250,200,image3->w,image3->h);
+        BITMAP *page;
+        page=create_bitmap(SCREEN_W,SCREEN_H);
+        clear_bitmap(page);
+        // Boucle de jeu
+        while (!key[KEY_ESC])
+        {
+
+            rest(30);
+        }
+        destroy_bitmap(page);
+
+        return 0;
+    }
+}
+END_OF_MAIN();
+
+
 
