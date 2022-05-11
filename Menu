@@ -11,34 +11,96 @@ int main()
         allegro_exit();
         exit(EXIT_FAILURE);
     }
+    extern volatile int mouse_x;
+    extern volatile int mouse_y;
+    extern volatile int mouse_b;
+
     install_mouse();
     install_keyboard();
-    BITMAP*imagechargee;
+    BITMAP*imageCharge;
+
     BITMAP*image2;
     BITMAP*image3;
-    while(!key[KEY_ESC])
-    {
-        imagechargee=load_bitmap("ImageNamek.bmp",NULL);
-        blit(imagechargee,screen,0,0,0,0,imagechargee->w,imagechargee->h);
+
+    BITMAP*menu;
+
+
+        menu=load_bitmap("MenuJoueur.bmp",NULL);
+        imageCharge=load_bitmap("ImageNamek.bmp",NULL);
+        blit(imageCharge,screen,0,0,0,0,imageCharge->w,imageCharge->h);
+
+
         image2=load_bitmap("quitter.bmp",NULL);
         blit(image2,screen,0,0,250,350,image2->w,image2->h);
         image3=load_bitmap("jouer.bmp",NULL);
         blit(image3,screen,0,0,250,200,image3->w,image3->h);
+       //  textout_ex(screen,font,150,0,makecol(255,255,0),-1,"Voila notre jeu");
         BITMAP *page;
         page=create_bitmap(SCREEN_W,SCREEN_H);
-        clear_bitmap(page);
-        // Boucle de jeu
+
         while (!key[KEY_ESC])
         {
+            show_mouse(screen);
+            BITMAP* buffer= create_bitmap(800,600);
+            if (mouse_b&1)
+            {
+                if(mouse_x>250 && mouse_x< 525 && mouse_y>200 && mouse_y<300)
+                {
+                    blit(menu,buffer,0,0,0,0,800,600);
+                    blit(buffer,screen,0,0,0,0,800,600);
+
+                }
+                if(mouse_x>350 && mouse_x< 400 && mouse_y>300 && mouse_y<500)
+                {
+
+                    return 0;
+
+                }
+
+            }
 
             rest(30);
+
+
         }
+
+    /*    if (key[KEY_SPACE])
+        {
+            BITMAP *page2;
+            page2=create_bitmap(SCREEN_W,SCREEN_H);
+            j2=load_bitmap("j2.bmp",NULL);
+            blit(j2,screen,0,0,250,200,j2->w,j2->h);
+            j3=load_bitmap("j3.bmp",NULL);
+            blit(j3,screen,0,0,250,200,j3->w,j3->h);
+            j4=load_bitmap("j4.bmp",NULL);
+            blit(j4,screen,0,0,250,200,j4->w,j4->h);
+
+
+
+            // Boucle de jeu
+            while (!key[KEY_ESC])
+            {
+                show_mouse(screen);
+
+                rest(30);
+
+
+            }
+            clear_bitmap(page2);
+
+            destroy_bitmap(page2);
+
+        }*/
+        clear_bitmap(page);
+
         destroy_bitmap(page);
+
+
+
 
         return 0;
     }
-}
-END_OF_MAIN();
 
+END_OF_MAIN();
 
 
